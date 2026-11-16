@@ -26,12 +26,15 @@ if ($name === '' || mb_strlen($name) > 120 || !filter_var($email, FILTER_VALIDAT
 }
 
 try {
-    $pdo = new PDO(
-        'mysql:host=' . (getenv('DB_HOST') ?: '127.0.0.1') . ';dbname=' . (getenv('DB_NAME') ?: 'blog') . ';charset=utf8mb4',
-        getenv('DB_USER') ?: 'root',
-        getenv('DB_PASSWORD') ?: '',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+$pdo = new PDO(
+    'mysql:host=' . (getenv('DB_HOST') ?: '127.0.0.1')
+        . ';port=' . (getenv('DB_PORT') ?: '3307')
+        . ';dbname=' . (getenv('DB_NAME') ?: 'contact_form')
+        . ';charset=utf8mb4',
+    getenv('DB_USER') ?: 'root',
+    getenv('DB_PASSWORD') ?: '',
+    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+);
     $statement = $pdo->prepare(
         'INSERT INTO contact (full_name, email, contact_number, topic, message, date_modified) VALUES (?, ?, ?, ?, ?, NOW())'
     );
