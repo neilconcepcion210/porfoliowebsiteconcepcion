@@ -636,6 +636,36 @@ textarea {
   color: var(--muted);
 }
 
+.form-status {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid;
+  border-radius: var(--radius);
+  background: #ffffff;
+  font-size: 1rem;
+}
+
+.form-status[hidden] {
+  display: none;
+}
+
+.form-status strong {
+  display: block;
+  font-size: 1.15rem;
+}
+
+.form-status-success {
+  border-color: var(--board);
+  background: #e9f5ed;
+  color: var(--board-dark);
+}
+
+.form-status-error {
+  border-color: #b00020;
+  background: #fff0f2;
+  color: #8b0019;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   margin-top: 2rem;

@@ -34,7 +34,8 @@
         <p>Have a web project, a question about my work, or a bike build to talk through? Send a message.</p>
       </header>
 
-      <form action="#" method="post">
+      <div id="form-status" class="form-status" role="status" tabindex="-1" hidden></div>
+      <form action="submit-contact.php" method="post">
         <fieldset>
           <legend>Send me a message</legend>
 
@@ -72,6 +73,10 @@
             <button type="submit" tabindex="6" accesskey="s">Send message</button>
             <button type="reset" tabindex="7" accesskey="r">Clear form</button>
           </div>
+          <div class="form-row" hidden aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
         </fieldset>
       </form>
     </div>
@@ -83,5 +88,37 @@
       <p><small>Computer Engineering, Dr. Yanga&rsquo;s Colleges Inc. &middot; <a href="contact.html">Get in touch</a></small></p>
     </div>
   </footer>
+  <script>
+    const status = new URLSearchParams(location.search).get('status');
+    const messages = {
+      sent: {
+        title: 'Message saved!',
+        detail: 'Your message was saved successfully. Thank you for contacting me.',
+        className: 'form-status-success',
+        role: 'status'
+      },
+      error: {
+        title: 'Message not saved',
+        detail: 'Please check your details and try again.',
+        className: 'form-status-error',
+        role: 'alert'
+      }
+    };
+
+    if (status === 'sent' || status === 'error') {
+      const message = document.getElementById('form-status');
+      const { title, detail, className, role } = messages[status];
+      const heading = document.createElement('strong');
+      const description = document.createElement('span');
+
+      heading.textContent = title;
+      description.textContent = detail;
+      message.classList.add(className);
+      message.setAttribute('role', role);
+      message.append(heading, description);
+      message.hidden = false;
+      message.focus();
+    }
+  </script>
 </body>
 </html>
